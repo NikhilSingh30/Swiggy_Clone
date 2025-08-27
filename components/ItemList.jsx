@@ -1,11 +1,19 @@
 import { URL } from "../utils/link"
 import { addItem } from "../utils/cartSlice"
 import { useDispatch } from "react-redux"
+import toast from "react-hot-toast";
 const ItemList = (props) => {
-    console.log(props)
+    
     const dispatch = useDispatch();
     const handleDispatch = (item) => {
         dispatch(addItem(item))
+        toast.success(`${item.card.info.name} added to cart 🛒`, {
+    style: {
+      borderRadius: "10px",
+      background: "#333",
+      color: "#fff",
+    },
+  }); 
     }
     return (
 

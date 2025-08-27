@@ -1,15 +1,30 @@
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { clearItem } from "../utils/cartSlice";
+import { removeItem } from "../utils/cartSlice";
+
+import CardPageCard from "./CardPageCard";
 const Cart = () => {
     const cartItems = useSelector((store) => store.cart.items)
+    const totalPrice = useSelector((store)=>store.cart.totalPrice)
+    const quantity = useSelector((store)=>store.cart)
+    
+    
+    
     const dispatch = useDispatch()
     const handleClearCart = () => {
         dispatch(clearItem())
     }
+    
+    const handleRemove = (id)=>{
+        dispatch(removeItem(id))
+    }
     return (
-        <div className="w-1/2 mx-auto my-10  flex flex-col items-center">
-            <h1 className="text-2xl font-semibold">Cart</h1>
+        <div className="w-1/2 mx-auto py-5  flex flex-col items-center">
+           
+            {
+                cartItems.length > 0 ?  <h1 className="text-2xl font-semibold">Your Cart items</h1> :  <h1 className="text-2xl font-semibold">Your Cart is empty</h1>
+            }
             {
                 cartItems.length > 0 && <button className="px-3 mt-5 cursor-pointer py-2 bg-red-500 hover:bg-red-600 rounded-md text-white font-bold" onClick={handleClearCart}>Clear Cart</button>
             }
@@ -17,26 +32,19 @@ const Cart = () => {
             <div className="w-full  mt-10">
                 {
                     cartItems.map((item) => {
-                        return <div className="w-full mb-7 shadow-md pl-2  border-b-black pt-2 flex justify-between items-center pb-5 bg-gray-100" key={item.card.id}>
-                            <div className="w-[70%] flex flex-col gap-1">
-                                <p className="font-semibold">{item.card.info.name}</p>
-                                <p className="font-semibold">₹ {item.card.info.defaultPrice / 100 || item.card.info.price / 100}</p>
-                                <p className="text-xs pb-2">{item.card.info.description}</p>
-                            </div>
-                            <div className="pr-5 relative">
-                                <div>
-                                    <img src={`https://media-assets.swiggy.com/swiggy/image/upload/${item.card.info.imageId}`} alt="" className="w-32 h-32 object-cover rounded-xl" />
-                                </div>
-
-
-
-                            </div>
-                        </div>
+                        return <CardPageCard data={item}/>
                     })
                 }
 
 
             </div>
+            {
+                cartItems.length > 0 &&   <div className="flex w-full justify-end">
+                    <h1 className="text-2xl font-semibold">Total Price : ₹{totalPrice.toFixed(2)}</h1>
+            </div>
+            }
+          
+            
         </div>
     )
 
