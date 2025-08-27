@@ -5,6 +5,7 @@ import { removeItem } from "../utils/cartSlice";
 
 import { useState } from "react";
 import { updateItems } from "../utils/cartSlice";
+import toast from "react-hot-toast"
 const CardPageCard = (props)=>{
      const cartItems = useSelector((store) => store.cart.items)
     const totalPrice = useSelector((store)=>store.cart.totalPrice)
@@ -14,14 +15,39 @@ const CardPageCard = (props)=>{
    
     const handleRemove = (id)=>{
         dispatch(removeItem(id))
+         toast.success(`${props.data.card.info.name} removed from cart 🛒`, {
+                style: {
+                borderRadius: "10px",
+                background: "#333",
+                color: "#fff",
+                },
+                });
+        
     }
     const handleUpdate = (id)=>{
         if(quantity < 1){
             alert("Quantity must be at least 1");
             setquantity(props.data.quantity);
-        }
-        else{
+        }else if (quantity === props.data.quantity) {
+    
+    toast(`${props.data.card.info.name} is already set to ${quantity} ⚡`, {
+      icon: "ℹ️",
+      style: {
+        borderRadius: "10px",
+        background: "#222",
+        color: "#fff",
+      },
+    });
+  }else{
             dispatch(updateItems({id,quantity}))
+            
+            toast.success(`${props.data.card.info.name} quantity updated to ${quantity} 🛒`, {
+                style: {
+                borderRadius: "10px",
+                background: "#333",
+                color: "#fff",
+                },
+                });
         }
 
 
