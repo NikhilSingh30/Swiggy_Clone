@@ -60,8 +60,8 @@ const CardPageCard = (props)=>{
                                 <p className="text-xs pb-2">{props.data.card.info.description}</p>
                                 <div className="flex items-center gap-3">
                                     <p className="font-semibold text-green-400">Quantity:</p><input type="number" min="1" className="border h-7 w-15 pl-2" value={quantity} onChange={(e)=>setquantity(e.target.value)}/>
-                                    <button className="px-4 py-1 bg-orange-400 text-white rounded-md cursor-pointer" onClick={()=>handleUpdate(props.data.card.info.id)}>Update</button>
-                                     <button className="px-4 py-1 bg-red-600 text-white rounded-md cursor-pointer" onClick={()=>handleRemove(props.data.card.info.id)}>Remove</button>
+                                    <button className="px-4 py-1 bg-orange-400 hover:bg-orange-500 text-white rounded-md cursor-pointer" onClick={()=>handleUpdate(props.data.card.info.id)}>Update</button>
+                                     <button className="px-4 py-1 bg-red-600  hover:bg-red-700 text-white rounded-md cursor-pointer" onClick={()=>handleRemove(props.data.card.info.id)}>Remove</button>
                                 </div>
                             </div>
                             <div className="pr-5 relative">
